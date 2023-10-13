@@ -26,12 +26,37 @@ function fetchProducts() {
     });
 }
 
-function addProduct(event) {
+function validateForm(name, price, desc) {
+  if (name.length < 6) {
+    alert("Ten san pham phai co it nhat 6 ky tu");
+    return false;
+  }
+
+  const parsedPrice = parseFloat(price);
+  if (isNaN(parsedPrice) || parsedPrice < 0) {
+    alert("Gia san pham khong duoc nho hon 0");
+    return false;
+  }
+
+  if (desc.length < 10) {
+    alert("Mo ta san pham phai dai it nhat 10 ky tu");
+    return false;
+  }
+
+  return true;
+}
+
+async function addProduct(event) {
   event.preventDefault();
 
   const name = document.getElementById("name").value;
   const price = document.getElementById("price").value;
   const desc = document.getElementById("desc").value;
+
+  // Validate the input data
+  if (!validateForm(name, price, desc)) {
+    return;
+  }
 
   const newProduct = {
     name,
@@ -41,33 +66,38 @@ function addProduct(event) {
 
   if (editingProductId) {
     // Update the product if editing
-    fetch(`${API}/${editingProductId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        fetchProducts();
-        productForm.reset();
-        editingProductId = null;
+    try {
+      const response = await fetch(`${API}/${editingProductId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
       });
+
+      await response.json();
+      fetchProducts();
+      productForm.reset();
+      editingProductId = null;
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
   } else {
-    // Add a new product if not editing
-    fetch(API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        fetchProducts();
-        productForm.reset();
+    try {
+      const response = await fetch(API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
       });
+
+      await response.json();
+      fetchProducts();
+      productForm.reset();
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   }
 }
 
@@ -88,7 +118,7 @@ function editProduct(id) {
 }
 
 function deleteProduct(id) {
-  const confirmDelete = confirm("Co muon xoa khong?");
+  const confirmDelete = confirm("Are you sure delete?");
 
   if (confirmDelete) {
     fetch(`${API}/${id}`, {
