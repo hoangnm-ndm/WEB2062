@@ -4,26 +4,29 @@ const productList = document.getElementById("productList");
 
 let editingProductId = null;
 
-function fetchProducts() {
-  fetch(API)
-    .then((response) => response.json())
-    .then((products) => {
-      productList.innerHTML = "";
-      products.forEach((product) => {
-        const productItem = document.createElement("div");
-        productItem.innerHTML = `
-          <div>
-            <strong>Name:</strong> ${product.name} <br>
-            <strong>Price:</strong> $${product.price} <br>
-            <strong>Description:</strong> ${product.desc} <br>
-            <button onclick="editProduct(${product.id})">Edit</button>
-            <button onclick="deleteProduct(${product.id})">Delete</button>
-          </div>
-          <hr>
-        `;
-        productList.appendChild(productItem);
-      });
+async function fetchProducts() {
+  try {
+    const response = await fetch(API);
+    const products = await response.json();
+
+    productList.innerHTML = "";
+    products.forEach((product) => {
+      const productItem = document.createElement("div");
+      productItem.innerHTML = `
+        <div>
+          <strong>Name:</strong> ${product.name} <br>
+          <strong>Price:</strong> $${product.price} <br>
+          <strong>Description:</strong> ${product.desc} <br>
+          <button onclick="editProduct(${product.id})">Edit</button>
+          <button onclick="deleteProduct(${product.id})">Delete</button>
+        </div>
+        <hr>
+      `;
+      productList.appendChild(productItem);
     });
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
 }
 
 function validateForm(name, price, desc) {
@@ -65,7 +68,6 @@ async function addProduct(event) {
   };
 
   if (editingProductId) {
-    // Update the product if editing
     try {
       const response = await fetch(`${API}/${editingProductId}`, {
         method: "PUT",
@@ -101,31 +103,37 @@ async function addProduct(event) {
   }
 }
 
-function editProduct(id) {
+async function editProduct(id) {
   editingProductId = id;
 
-  fetch(`${API}/${id}`)
-    .then((response) => response.json())
-    .then((product) => {
-      const nameInput = document.getElementById("name");
-      const priceInput = document.getElementById("price");
-      const descInput = document.getElementById("desc");
+  try {
+    const response = await fetch(`${API}/${id}`);
+    const product = await response.json();
 
-      nameInput.value = product.name;
-      priceInput.value = product.price;
-      descInput.value = product.desc;
-    });
+    const nameInput = document.getElementById("name");
+    const priceInput = document.getElementById("price");
+    const descInput = document.getElementById("desc");
+
+    nameInput.value = product.name;
+    priceInput.value = product.price;
+    descInput.value = product.desc;
+  } catch (error) {
+    console.error("Lỗi khi update:", error);
+  }
 }
 
-function deleteProduct(id) {
-  const confirmDelete = confirm("Are you sure delete?");
+async function deleteProduct(id) {
+  const confirmDelete = confirm("Bạn có chắc chắn muốn xóa không?");
 
   if (confirmDelete) {
-    fetch(`${API}/${id}`, {
-      method: "DELETE",
-    }).then(() => {
+    try {
+      await fetch(`${API}/${id}`, {
+        method: "DELETE",
+      });
       fetchProducts();
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
 

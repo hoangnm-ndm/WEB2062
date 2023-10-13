@@ -1,28 +1,16 @@
 {
   "products": [
     {
-      "name": "iphone 12",
-      "price": "200",
-      "desc": "sdsdsdsfdfdfdfdf",
-      "id": 14
-    },
-    {
-      "name": "san pham A",
-      "price": "200",
-      "desc": "mo ta cho san pham",
-      "id": 15
-    },
-    {
-      "name": "dsds",
-      "price": "23232",
-      "desc": "sdsdsds",
-      "id": 16
-    },
-    {
       "name": "hoangweww",
       "price": "2000",
       "desc": "sdsddsdsdsdsdsđs",
       "id": 17
+    },
+    {
+      "name": "sdsdsdsdsd",
+      "price": "23232",
+      "desc": "3232323232",
+      "id": 18
     }
   ]
 }
