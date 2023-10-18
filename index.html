@@ -3,25 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Product Management</title>
+    <title>ASM Demo</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <div class="container">
+    <div class="wrap">
       <h1>Product Management</h1>
-      <form id="productForm">
-        <label for="name">Product Name:</label>
-        <input type="text" id="name" required /><br />
-        <label for="price">Price:</label>
-        <input type="number" id="price" required /><br />
-        <label for="desc">Description:</label>
-        <textarea id="desc" required></textarea><br />
-        <button type="submit">Add Product</button>
-      </form>
+      <div class="flex-between">
+        <form action="" id="form">
+          <div class="form-control">
+            <label for="name">Product Name:</label>
+            <input required type="text" name="name" id="name" />
+          </div>
+          <div class="form-control">
+            <label for="name">Product Price:</label>
+            <input required type="number" name="price" id="price" />
+          </div>
+          <div class="form-control">
+            <label for="desc">Product Description:</label>
+            <textarea
+              rows="6"
+              required
+              type="text"
+              name="desc"
+              id="desc"
+            ></textarea>
+          </div>
 
-      <div id="productList"></div>
+          <div class="form-control">
+            <button type="submit">Add product</button>
+          </div>
+        </form>
+        <div id="productList"></div>
+      </div>
     </div>
-
     <script src="./main.js"></script>
   </body>
 </html>

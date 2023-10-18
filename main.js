@@ -1,5 +1,5 @@
 const API = "http://localhost:3000/products";
-const productForm = document.getElementById("productForm");
+const productForm = document.getElementById("form");
 const productList = document.getElementById("productList");
 
 let editingProductId = null;
@@ -13,14 +13,13 @@ const fetchProducts = async () => {
     products.forEach((product) => {
       const productItem = document.createElement("div");
       productItem.innerHTML = `
-        <div>
+        <div class="product-card">
           <strong>Name:</strong> ${product.name} <br>
           <strong>Price:</strong> $${product.price} <br>
           <strong>Description:</strong> ${product.desc} <br>
           <button onclick="editProduct(${product.id})">Edit</button>
           <button onclick="deleteProduct(${product.id})">Delete</button>
         </div>
-        <hr>
       `;
       productList.appendChild(productItem);
     });
