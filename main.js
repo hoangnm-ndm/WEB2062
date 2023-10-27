@@ -9,7 +9,6 @@ const fetchProducts = async () => {
     const response = await fetch(API);
     const products = await response.json();
 
-    productList.innerHTML = "";
     products.forEach((product) => {
       const productItem = document.createElement("div");
       productItem.innerHTML = `
