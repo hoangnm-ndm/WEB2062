@@ -5,6 +5,14 @@
   z-index: 9999;
 }
 
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease-in-out;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
 .toast {
   width: 200px;
   max-width: 100%;
@@ -30,4 +38,55 @@
 .error {
   border-top: 8px solid red;
   color: red;
+}
+
+.message-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.message {
+  width: calc(100% - 30px);
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #4caf50;
+  border: 1px solid #4caf50;
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: #ff8c00;
+  border: 1px solid #ff8c00;
+}
+.btn-error {
+  color: #fff;
+  background-color: red;
+  border: 1px solid red;
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #fff;
+  transition: opacity 0.5s ease-in-out;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  background-color: blue;
+  color: #fff;
 }
