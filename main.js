@@ -1,19 +1,22 @@
-const API = "http://localhost:3000/products";
 const productForm = document.getElementById("form");
 const productList = document.getElementById("productList");
+
+const instance = axios.create({
+  baseURL: "http://localhost:3000/products",
+  headers: { "Content-Type": "application/json" },
+});
 
 let editingProductId = null;
 
 const fetchProducts = async () => {
   try {
-    const response = await fetch(API);
-    const products = await response.json();
+    const { data } = await instance.get("/");
 
-    products.forEach((product) => {
+    await data.forEach((product) => {
       const productItem = document.createElement("div");
       productItem.innerHTML = `
         <div class="product-card">
-          <strong>Name:</strong> ${product.name} <br>
+          <strong>Name:</strong><button onclick="showDetail(${product.id})">${product.name}</button> <br>
           <strong>Price:</strong> $${product.price} <br>
           <strong>Description:</strong> ${product.desc} <br>
           <button onclick="editProduct(${product.id})">Edit</button>
@@ -25,6 +28,10 @@ const fetchProducts = async () => {
   } catch (error) {
     console.error("Error fetching products:", error);
   }
+};
+
+const showDetail = async (id) => {
+  console.log(`Hien thi chi tiet: ${id} `);
 };
 
 const validateForm = (name, price, desc) => {

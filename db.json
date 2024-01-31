@@ -4,19 +4,31 @@
       "name": "sdsdsdsdsd",
       "price": "23232222222",
       "desc": "sdsdsưewewewew",
-      "id": 18
+      "id": 1
     },
     {
       "name": "3232323",
       "price": "22",
       "desc": "2323232rererere",
-      "id": 19
+      "id": 2
     },
     {
       "name": "4343545445454",
       "price": "443434343",
       "desc": "erererererer",
-      "id": 20
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "san pham moi",
+      "price": "2000",
+      "desc": "111111wewewe"
+    },
+    {
+      "id": "5bd7",
+      "name": "san pham moi 2024",
+      "price": "200",
+      "desc": "mo ta cho san pham,"
     }
   ]
 }
