@@ -8,3 +8,17 @@ ul,
 li {
 	list-style: none;
 }
+
+#form {
+	width: 600px;
+	max-width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 40px;
+}
+
+input,
+textarea {
+	display: block;
+	width: 100%;
+}

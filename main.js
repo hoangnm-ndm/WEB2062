@@ -1,4 +1,4 @@
-const productForm = document.getElementById("form");
+document.getElementById("form");
 const productList = document.getElementById("products");
 
 const instance = axios.create({
@@ -8,11 +8,15 @@ const instance = axios.create({
 	},
 });
 
+let isEdit = "";
+
 const fetchProducts = async () => {
 	try {
 		const { data } = await instance.get("/");
 		console.log(data);
-		showProducts(data);
+		if (productList) {
+			showProducts(data);
+		}
 	} catch (error) {
 		console.error("Error fetching products:", error);
 	}
@@ -37,7 +41,55 @@ const showProducts = (data) => {
 };
 
 function editProduct(id) {
-	console.log(id);
+	isEdit = id;
+	(async () => {
+		try {
+			const { data } = await instance.get(`/${id}`);
+			const { title, price, description } = data;
+			document.getElementById("title").value = title;
+			document.getElementById("price").value = price;
+			document.getElementById("description").value = description;
+		} catch (error) {
+			console.log(error);
+		}
+	})();
+}
+
+function submitProduct() {
+	const title = document.getElementById("title").value;
+	const price = document.getElementById("price").value;
+	const description = document.getElementById("description").value;
+
+	if (!title || !price || !description) {
+		alert("Please fill out all fields");
+		return;
+	}
+
+	if (price < 0) {
+		alert("Price must be greater than 0");
+		return;
+	}
+
+	const product = {
+		title,
+		price,
+		description,
+	};
+
+	(async () => {
+		try {
+			if (isEdit) {
+				await instance.put(`/${isEdit}`, product);
+				isEdit = "";
+				console.log("Edit product successful");
+			} else {
+				await instance.post("/", product);
+				console.log("Created product successfully");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	})();
 }
 
 async function deleteProduct(id) {
@@ -52,3 +104,8 @@ async function deleteProduct(id) {
 }
 
 fetchProducts();
+
+document.getElementById("form").addEventListener("submit", (e) => {
+	e.preventDefault();
+	submitProduct();
+});

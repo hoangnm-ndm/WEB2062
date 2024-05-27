@@ -13,18 +13,44 @@
 		<link rel="stylesheet" href="./style.css" />
 	</head>
 	<body>
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th>Product ID</th>
-					<th>Product Title</th>
-					<th>Product Price</th>
-					<th>Product Description</th>
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody id="products"></tbody>
-		</table>
+		<div class="row">
+			<div class="col-4">
+				<h2>Product manager</h2>
+				<form action="" id="form">
+					<div class="mb-3">
+						<label for="title">Product title:</label>
+						<input class="form-control" required type="text" name="title" id="title" />
+					</div>
+					<div class="mb-3">
+						<label for="price">Product Price:</label>
+						<input class="form-control" required type="number" name="price" id="price" />
+					</div>
+					<div class="mb-3">
+						<label for="description">Product Description:</label>
+						<input class="form-control" required type="text" name="description" id="description" />
+					</div>
+
+					<div class="mb-3">
+						<button class="btn btn-primary w-100" type="submit">Submit</button>
+					</div>
+				</form>
+			</div>
+			<div class="col-8">
+				<table class="table table-striped table-bordered text-center">
+					<thead>
+						<tr>
+							<th>Product ID</th>
+							<th>Product Title</th>
+							<th>Product Price</th>
+							<th>Product Description</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody id="products"></tbody>
+				</table>
+			</div>
+		</div>
+
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.7/axios.min.js"
 			integrity="sha512-NQfB/bDaB8kaSXF8E77JjhHG5PM6XVRxvHzkZiwl3ddWCEPBa23T76MuWSwAJdMGJnmQqM0VeY9kFszsrBEFrQ=="
